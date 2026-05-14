@@ -1,0 +1,59 @@
+version: "3.8"
+
+# ============================================================
+#  Qualibytes GPT — Docker Compose
+#  Services: frontend (nginx) | backend (flask) | ollama (LLM)
+#  Network : qualibytes-network (all 3 talk to each other)
+# ============================================================
+
+services:
+
+  # ── 1. FRONTEND ──────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    container_name: qualibytes-frontend
+    ports:
+      - "80:80"            # Browser hits port 80
+    depends_on:
+      - backend            # Backend must start first
+    networks:
+      - qualibytes-network
+    restart: unless-stopped
+
+  # ── 2. BACKEND ───────────────────────────────────────────
+  backend:
+    build: ./backend
+    container_name: qualibytes-backend
+    ports:
+      - "5000:5000"        # Exposed for direct testing
+    environment:
+      - OLLAMA_URL=http://ollama:11434   # Container name as hostname
+      - MODEL_NAME=tinyllama
+    depends_on:
+      - ollama             # Ollama must start first
+    networks:
+      - qualibytes-network
+    restart: unless-stopped
+
+  # ── 3. OLLAMA (LLM ENGINE) ───────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: qualibytes-ollama
+    ports:
+      - "11434:11434"      # Exposed for direct testing
+    volumes:
+      - ollama-data:/root/.ollama   # Model files persist across restarts
+    networks:
+      - qualibytes-network
+    restart: unless-stopped
+
+# ── SHARED NETWORK ─────────────────────────────────────────
+networks:
+  qualibytes-network:
+    driver: bridge
+    name: qualibytes-network
+
+# ── NAMED VOLUME (Ollama model storage) ────────────────────
+volumes:
+  ollama-data:
+    name: ollama-data
