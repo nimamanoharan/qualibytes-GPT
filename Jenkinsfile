@@ -27,11 +27,11 @@ pipeline {
             steps {
                 echo '=== Building Frontend & Backend Images ==='
                 sh """
-                    docker build -t ${DOCKER_IMAGE_FRONTEND}:${BUILD_NUMBER} ./frontend
-                    docker build -t ${DOCKER_IMAGE_BACKEND}:${BUILD_NUMBER}  ./backend
+                    docker build -t ${DOCKER_CREDS_USR}/qualibytes-frontend:${BUILD_NUMBER} ./frontend
+                    docker build -t ${DOCKER_CREDS_USR}/qualibytes-backend:${BUILD_NUMBER}  ./backend
 
-                    docker tag ${DOCKER_IMAGE_FRONTEND}:${BUILD_NUMBER} ${DOCKER_IMAGE_FRONTEND}:latest
-                    docker tag ${DOCKER_IMAGE_BACKEND}:${BUILD_NUMBER}  ${DOCKER_IMAGE_BACKEND}:latest
+                    docker tag ${DOCKER_CREDS_USR}/qualibytes-frontend:${BUILD_NUMBER} ${DOCKER_IMAGE_FRONTEND}:latest
+                    docker tag ${DOCKER_CREDS_USR}/qualibytes-backend:${BUILD_NUMBER}  ${DOCKER_IMAGE_BACKEND}:latest
 
                     docker images | grep qualibytes
                 """
@@ -45,11 +45,11 @@ pipeline {
                 sh """
                     echo ${DOCKER_CREDS_PSW} | docker login -u ${DOCKER_CREDS_USR} --password-stdin
 
-                    docker push ${DOCKER_IMAGE_FRONTEND}:latest
-                    docker push ${DOCKER_IMAGE_FRONTEND}:${BUILD_NUMBER}
+                    docker push ${DOCKER_CREDS_USR}/qualibytes-frontend:latest
+                    docker push ${DOCKER_CREDS_USR}/qualibytes-frontend:${BUILD_NUMBER}
 
-                    docker push ${DOCKER_IMAGE_BACKEND}:latest
-                    docker push ${DOCKER_IMAGE_BACKEND}:${BUILD_NUMBER}
+                    docker push ${DOCKER_CREDS_USR}/qualibytes-backend:latest
+                    docker push ${DOCKER_CREDS_USR}/qualibytes-backend:${BUILD_NUMBER}
 
                     docker logout
                 """
