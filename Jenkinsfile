@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE_FRONTEND = "${DOCKER_USERNAME}/qualibytes-frontend"
         DOCKER_IMAGE_BACKEND  = "${DOCKER_USERNAME}/qualibytes-backend"
-        APP_SERVER_IP         = "${APP_SERVER_IP}"
+        APP_SERVER_IP         = "172.31.25.2"
         DOCKER_CREDS          = credentials('dockerhub-credentials')
     }
 
