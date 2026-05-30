@@ -78,7 +78,7 @@ pipeline {
                                 docker exec qualibytes-ollama ollama pull tinyllama
                             fi
 
-                            docker-compose ps
+                            docker compose ps
                             docker logout
                         '
                     """
