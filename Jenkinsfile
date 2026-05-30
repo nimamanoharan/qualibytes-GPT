@@ -62,9 +62,9 @@ pipeline {
                 echo '=== Deploying to App Server ==='
                 sshagent(['app-server-ssh-key']) {
                     sh """
-                        scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${APP_SERVER_IP}:~/docker-compose.yml
+                        scp -o StrictHostKeyChecking=no docker-compose.yml jenkins@${APP_SERVER_IP}:~/docker-compose.yml
 
-                        ssh -o StrictHostKeyChecking=no ubuntu@${APP_SERVER_IP} '
+                        ssh -o StrictHostKeyChecking=no jenkins@${APP_SERVER_IP} '
                             export DOCKER_USERNAME=${DOCKER_CREDS_USR}
 
                             echo ${DOCKER_CREDS_PSW} | docker login -u ${DOCKER_CREDS_USR} --password-stdin
@@ -92,7 +92,7 @@ pipeline {
                 echo '=== Verifying deployment ==='
                 sshagent(['app-server-ssh-key']) {
                     sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@${APP_SERVER_IP} '
+                        ssh -o StrictHostKeyChecking=no jenkins@${APP_SERVER_IP} '
                             sleep 5
                             curl --retry 5 --retry-delay 3 --fail \
                                  http://localhost:5000/health \
