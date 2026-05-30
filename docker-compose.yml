@@ -23,8 +23,8 @@ services:
   # ── 2. BACKEND ───────────────────────────────────────────
   backend:
    image: nimadockerhub05/qualibytes-backend:latest
-    container_name: qualibytes-backend
-    ports:
+   container_name: qualibytes-backend
+   ports:
       - "5000:5000"        # Exposed for direct testing
     environment:
       - OLLAMA_URL=http://ollama:11434   # Container name as hostname
