@@ -70,7 +70,7 @@ pipeline {
                             echo ${DOCKER_CREDS_PSW} | docker login -u ${DOCKER_CREDS_USR} --password-stdin
 
                             docker compose pull frontend backend
-                            docker compose up -d --no-deps frontend backend
+                            docker compose up -d --no-deps frontend backend ollama
 
                             # Pull tinyllama only if not already downloaded
                             if ! docker exec qualibytes-ollama ollama list 2>/dev/null | grep -q tinyllama; then
