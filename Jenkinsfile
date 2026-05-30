@@ -116,7 +116,7 @@ pipeline {
             echo ' Pipeline FAILED — Check stage logs above'
         }
         always {
-            cleanWs()
-        }
+    echo 'Cleaning workspace'
+}
     }
 }
