@@ -26,14 +26,14 @@ services:
    container_name: qualibytes-backend
    ports:
       - "5000:5000"        # Exposed for direct testing
-    environment:
+   environment:
       - OLLAMA_URL=http://ollama:11434   # Container name as hostname
       - MODEL_NAME=tinyllama
-    depends_on:
+   depends_on:
       - ollama             # Ollama must start first
-    networks:
+   networks:
       - qualibytes-network
-    restart: unless-stopped
+   restart: unless-stopped
 
   # ── 3. OLLAMA (LLM ENGINE) ───────────────────────────────
   ollama:
