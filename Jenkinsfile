@@ -30,8 +30,8 @@ pipeline {
                     docker build -t ${DOCKER_CREDS_USR}/qualibytes-frontend:${BUILD_NUMBER} ./frontend
                     docker build -t ${DOCKER_CREDS_USR}/qualibytes-backend:${BUILD_NUMBER}  ./backend
 
-                    docker tag ${DOCKER_CREDS_USR}/qualibytes-frontend:${BUILD_NUMBER} ${DOCKER_IMAGE_FRONTEND}:latest
-                    docker tag ${DOCKER_CREDS_USR}/qualibytes-backend:${BUILD_NUMBER}  ${DOCKER_IMAGE_BACKEND}:latest
+                    docker tag ${DOCKER_CREDS_USR}/qualibytes-frontend:${BUILD_NUMBER} ${DOCKER_CREDS_USR}/qualibytes-frontend:latest
+                    docker tag ${DOCKER_CREDS_USR}/qualibytes-backend:${BUILD_NUMBER}  ${DOCKER_CREDS_USR}/qualibytes-backend:latest
 
                     docker images | grep qualibytes
                 """
