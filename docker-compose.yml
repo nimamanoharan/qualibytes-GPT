@@ -10,7 +10,7 @@ services:
 
   # ── 1. FRONTEND ──────────────────────────────────────────
   frontend:
-    build: ./frontend
+    image: nimadockerhub05/qualibytes-frontend:latest
     container_name: qualibytes-frontend
     ports:
       - "80:80"            # Browser hits port 80
@@ -22,7 +22,7 @@ services:
 
   # ── 2. BACKEND ───────────────────────────────────────────
   backend:
-    build: ./backend
+   image: nimadockerhub05/qualibytes-backend:latest
     container_name: qualibytes-backend
     ports:
       - "5000:5000"        # Exposed for direct testing
