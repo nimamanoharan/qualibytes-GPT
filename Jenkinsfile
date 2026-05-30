@@ -60,7 +60,7 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 echo '=== Deploying to App Server ==='
-                sshagent(['app-server-ssh-key']) {
+                sshagent(['jenkins-agent']) {
                     sh """
                         scp -o StrictHostKeyChecking=no docker-compose.yml jenkins@${APP_SERVER_IP}:~/docker-compose.yml
 
